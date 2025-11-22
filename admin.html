@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Painel Admin - Cadastrar Vendedor</title>
+<style>
+body{font-family:Arial;padding:20px;background:#f7f7f7}
+.box{max-width:600px;margin:20px auto;background:#fff;padding:18px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+input{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:1px solid #ddd}
+button{padding:12px 16px;background:#25D366;color:#fff;border:0;border-radius:8px;font-weight:700;cursor:pointer}
+.small{font-size:13px;color:#666}
+</style>
+</head>
+<body>
+<div class="box">
+  <h2>Painel Admin - Cadastrar Vendedor</h2>
+  <p class="small">Preencha e clique em salvar. O cadastro fica salvo no navegador (localStorage).</p>
+
+  <label>Nome</label>
+  <input id="nomeVend">
+
+  <label>CPF (somente números)</label>
+  <input id="cpfVend">
+
+  <label>WhatsApp (somente números, exemplo 5594...)</label>
+  <input id="zapVend">
+
+  <label>URL da foto (opcional)</label>
+  <input id="fotoVend">
+
+  <button onclick="salvarVendedor()">Salvar vendedor</button>
+
+  <div id="msg" style="margin-top:12px"></div>
+</div>
+
+<script>
+let VENDEDORES = JSON.parse(localStorage.getItem('VendedoresSiteHonda') || "{}");
+
+function salvarVendedor(){
+  const nome = document.getElementById('nomeVend').value.trim();
+  const cpf = document.getElementById('cpfVend').value.replace(/\D/g,'').trim();
+  const zap = document.getElementById('zapVend').value.replace(/\D/g,'').trim();
+  const foto = document.getElementById('fotoVend').value.trim();
+
+  if(!nome || !cpf || !zap){ alert('Preencha nome, cpf e zap'); return; }
+
+  VENDEDORES[cpf] = { nome, cpf, zap, foto };
+  localStorage.setItem('VendedoresSiteHonda', JSON.stringify(VENDEDORES));
+
+  const link = location.origin + location.pathname.replace(/[^/]*$/, '') + 'index.html?vendedor=' + cpf;
+  // se seu site principal tem outro nome (ex site.html), troque index.html pelo nome correto.
+  document.getElementById('msg').innerHTML = "<strong>Vendedor salvo.</strong><br>Link para o vendedor (envie a ele):<br><input style='width:100%;padding:8px;' value='"+link+"' readonly>";
+}
+</script>
+</body>
+</html>
