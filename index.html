@@ -52,7 +52,8 @@ button{background:var(--red);color:#fff;border:none;cursor:pointer;font-weight:7
   <div class="header-brand">
     <div class="logo">HONDA</div>
     <div>
-      <div style="font-weight:800"><span class="vendedorNome">Lucas Honda</span></div>
+      <span class="vendedorNome" id="nomeVendedor"></span>
+
       <div style="font-size:13px;color:#ddd">Financiamento • Consórcio • Atendimento Rápido</div>
     </div>
   </div>
@@ -87,7 +88,7 @@ button{background:var(--red);color:#fff;border:none;cursor:pointer;font-weight:7
     <div class="form-card">
       <h3>Contato</h3>
       <p class="small">Atendimento via WhatsApp</p>
-      <p><strong>📞</strong> <span class="vendedorZap">5594992781498</span> (WhatsApp)</p>
+      <p><strong>📞</strong> <span id="zapVendedor"></span> (WhatsApp)</p>
     </div>
   </section>
 
@@ -99,12 +100,12 @@ button{background:var(--red);color:#fff;border:none;cursor:pointer;font-weight:7
 
 
 <!-- SEU BOTÃO PERSONALIZADO -->
-<a class="fix-whatsapp" id="vendedorFAB"
-   href="https://agent.vendedoria.acelerabit.com/site-vendedor?vendedor_image=https://image2url.com/images/1763321623834-3529dfca-89a1-481c-9b53-be3324834b67.jpg&vendedor_name=Lucas Honda&vendedor_whatsapp=559492781498&vendedor_id=9115&vendedor_concessionaria=REVEMAR&region_id=1"
-   title="Fale comigo">
+<a id="vendedorFAB" class="fix-whatsapp" href="#" title="Fale comigo">
+    <img src="" id="vendedorFotoIA" alt="Agente IA" style="width:100%;border-radius:8px;display:block">
+</a>
 
-    <img src="https://image2url.com/images/1763309674459-eb0d700a-563d-4d50-8ae0-e07684b04f30.jpg"
-     alt="Foto vendedor" class="lucas-foto vendedorFoto">
+
+   <img id="fotoVendedor" src="" alt="Foto do Vendedor" class="lucas-foto">
 
 
     <i class="bi bi-whatsapp"></i>
@@ -183,10 +184,12 @@ button{background:var(--red);color:#fff;border:none;cursor:pointer;font-weight:7
 </style>
 
 
+
 <script>
 /* ===== DADOS EDITÁVEIS ===== */
 const DATA = {
-  whatsappNumber: '5594992781498',
+  whatsappNumber: null, // será preenchido pelo ADM
+
 
   // Mantive precoAvista onde existia (não necessário pro consórcio),
   // mas o consórcio agora tem valores próprios em `parcelas`.
@@ -668,157 +671,35 @@ init();
         document.getElementById("whatsFAB").style.right = "40px";
     }
 </script>
+<script>
+    // Estes dados vão vir do seu ADM
+    const vendedor = {
+        nome: "Lucas Honda",
+        whatsapp: "559492781498",
+        foto: "https://image2url.com/images/1763321623834-3529dfca-89a1-481c-9b53-be3324834b67.jpg",
+        id: "9115"
+    };
+
+    // Atualiza a foto do botão da IA
+    document.getElementById("vendedorFotoIA").src = vendedor.foto;
+
+    // Monta o link dinâmico para a IA
+    document.getElementById("vendedorFAB").href =
+        "https://agent.vendedoria.acelerabit.com/site-vendedor"
+        + "?vendedor_image=" + encodeURIComponent(vendedor.foto)
+        + "&vendedor_name=" + encodeURIComponent(vendedor.nome)
+        + "&vendedor_whatsapp=" + vendedor.whatsapp
+        + "&vendedor_id=" + vendedor.id
+        + "&vendedor_concessionaria=REVEMAR"
+        + "&region_id=1";
+</script>
+
+
 
 <a class="fix-whatsapp" id="whatsFAB" href="#" title="Falar no WhatsApp">💬</a>
 
-<!-- LOGIN DO VENDEDOR -->
-<div id="loginVendedor" style="
-    position: fixed; top:0; left:0; width:100%; height:100%;
-    background:#fff; padding:20px; z-index:99999; display:none;
-    font-family: Arial;">
-    
-    <h2>Acesso do Vendedor</h2>
-    <p>Insira seu CPF e WhatsApp para acessar seu site personalizado.</p>
-
-    <label>CPF:</label><br>
-    <input id="cpfLogin" type="text" style="width:100%; padding:10px; margin-bottom:10px;"><br>
-
-    <label>WhatsApp:</label><br>
-    <input id="zapLogin" type="text" style="width:100%; padding:10px; margin-bottom:10px;"><br>
-
-    <button onclick="entrarVendedor()" style="
-        width:100%; padding:10px; background:#25D366; color:#fff;
-        border:none; font-size:18px; border-radius:8px;">
-        Entrar
-    </button>
-</div>
-
-<script>
-let VENDEDORES = JSON.parse(localStorage.getItem('VendedoresSiteHonda') || "{}");
-
-// MOSTRAR TELA DE LOGIN AO ABRIR SITE
-window.onload = function () {
-    const params = new URLSearchParams(location.search);
-    if (params.get("vendedor") !== null) {
-        document.querySelector("#loginVendedor").style.display = "block";
-    }
-};
-
-// LOGIN
-function entrarVendedor() {
-    let cpf = document.querySelector("#cpfLogin").value.trim();
-    let zap = document.querySelector("#zapLogin").value.trim();
-
-    let vend = VENDEDORES[cpf];
-    if (!vend || vend.zap !== zap) {
-        alert("Dados incorretos.");
-        return;
-    }
-
-    aplicarDadosVendedor(vend);
-    document.querySelector("#loginVendedor").style.display = "none";
-}
-
-function aplicarDadosVendedor(v) {
-    document.querySelectorAll(".vendedorNome").forEach(e => e.textContent = v.nome);
-    document.querySelectorAll(".vendedorZap").forEach(e => e.textContent = v.zap);
-    document.querySelectorAll(".vendedorFoto").forEach(e => e.src = v.foto);
-
-    let botao = document.querySelector("#vendedorFAB");
-    if (botao) botao.href = `https://wa.me/${v.zap}`;
-}
-</script>
-<a class="fix-whatsapp" id="whatsFAB" href="#" title="Falar no WhatsApp">💬</a>
-
-<!-- =======================================
-     LOGIN DO VENDEDOR + APLICA DADOS AO SITE
-     Cole isto ANTES do </body>
-======================================= -->
-<!-- Tela de login (overlay) -->
-<div id="loginVendedor" style="
-    position: fixed;
-    top:0; left:0; width:100%; height:100%;
-    background: rgba(255,255,255,0.98); padding:24px; z-index:99999;
-    display:none; font-family:Inter, Arial;">
-  <div style="max-width:420px;margin:40px auto;">
-    <h2 style="margin:6px 0 12px;">Acesso do Vendedor</h2>
-    <p style="margin:0 0 12px;">Digite seu CPF e WhatsApp para entrar.<br>Ex.: CPF 99999999999 / WhatsApp 5594XXXXXXXX</p>
-
-    <label>CPF</label>
-    <input id="cpfLogin" type="text" style="width:100%; padding:10px; margin-bottom:10px;">
-
-    <label>WhatsApp (somente números)</label>
-    <input id="zapLogin" type="text" style="width:100%; padding:10px; margin-bottom:14px;">
-
-    <button onclick="entrarVendedor()" style="width:100%; padding:12px; background:#c8102e; color:#fff; border:0; border-radius:8px; font-weight:700;">
-      Entrar
-    </button>
-
-    <div style="margin-top:12px; font-size:13px; color:#666;">
-      <small>Se o vendedor ainda não possui conta, peça para o administrador cadastrá-lo.</small>
-    </div>
-  </div>
-</div>
-
-<script>
-// dados de vendedores ficam no localStorage no objeto 'VendedoresSiteHonda'
-// formato: { "CPFSEMMAISCARACTER": { nome, cpf, zap, foto } }
-const VENDEDORES = JSON.parse(localStorage.getItem('VendedoresSiteHonda') || "{}");
-
-// Mostrar overlay de login somente se a url vier com ?vendedor= (modo de proteção)
-window.addEventListener('load', () => {
-  const params = new URLSearchParams(location.search);
-  if (params.has('vendedor')) {
-    document.getElementById('loginVendedor').style.display = 'block';
-  } else {
-    // Se quiser obrigar login sem parametro, altere aqui para mostrar sempre
-    //document.getElementById('loginVendedor').style.display = 'block';
-  }
-
-  // Se já estiver logado (localStorage), aplicar direto
-  const vendedorLogado = localStorage.getItem('vendedorLogadoCPF');
-  if (vendedorLogado && VENDEDORES[vendedorLogado]) {
-    aplicarDadosVendedor(VENDEDORES[vendedorLogado]);
-  }
-});
-
-function entrarVendedor(){
-  const cpf = document.getElementById('cpfLogin').value.replace(/\D/g,'').trim();
-  const zap = document.getElementById('zapLogin').value.replace(/\D/g,'').trim();
-
-  if(!cpf || !zap){
-    alert('Preencha CPF e WhatsApp.');
-    return;
-  }
-
-  const vend = VENDEDORES[cpf];
-  if(!vend){
-    alert('Vendedor não encontrado. Peça para o administrador cadastrá-lo.');
-    return;
-  }
-  if(vend.zap.replace(/\D/g,'') !== zap){
-    alert('WhatsApp não confere.');
-    return;
-  }
-
-  // grava que está logado e aplica dados
-  localStorage.setItem('vendedorLogadoCPF', cpf);
-  aplicarDadosVendedor(vend);
-  document.getElementById('loginVendedor').style.display = 'none';
-}
-
-function aplicarDadosVendedor(v){
-  // troca textos
-  document.querySelectorAll('.vendedorNome').forEach(el => el.textContent = v.nome || el.textContent);
-  document.querySelectorAll('.vendedorZap').forEach(el => el.textContent = v.zap || el.textContent);
-  // troca imagem (se existir)
-  document.querySelectorAll('.vendedorFoto').forEach(img => { if(v.foto) img.src = v.foto; });
-  // altera o botão do WhatsApp flutuante (se existir)
-  const btn = document.getElementById('vendedorFAB');
-  if(btn) btn.href = `https://wa.me/${(v.zap||'').replace(/\D/g,'')}`;
-}
-</script>
 
 </body>
+
 </html>
 
