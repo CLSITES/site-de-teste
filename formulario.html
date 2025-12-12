@@ -1,139 +1,91 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulação - Honda Revemar</title>
-<link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formulário — Honda Revemar</title>
 
-<!-- Animações -->
 <style>
-form { animation: fadeInUp .5s ease; }
-@keyframes fadeInUp {
-  from { opacity:0; transform:translateY(20px); }
-  to { opacity:1; transform:translateY(0); }
-}
+    body{
+        margin:0;
+        background:#f7f7f7;
+        font-family:Arial, sans-serif;
+        padding:20px;
+    }
 
-.input-style {
-  width: 100%;
-  padding: 15px;
-  margin: 8px 0;
-  border-radius: 10px;
-  border: 2px solid #ccc;
-  font-size: 17px;
-  outline: none;
-  transition: .2s;
-}
+    .container{
+        max-width:500px;
+        margin:0 auto;
+        background:#fff;
+        padding:25px;
+        border-radius:12px;
+        box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
 
-.input-style:focus {
-  border-color: #c8102e;
-  transform: scale(1.02);
-}
+    h2{
+        text-align:center;
+        margin:0 0 20px;
+        color:#c8102e;
+    }
 
-.btn-enviar {
-  width: 100%;
-  padding: 15px;
-  background: #c8102e;
-  border: none;
-  color: white;
-  border-radius: 10px;
-  font-size: 18px;
-  margin-top: 10px;
-  transition: .2s;
-}
+    label{
+        font-size:15px;
+        margin-bottom:5px;
+        display:block;
+    }
 
-.btn-enviar:active {
-  transform: scale(.95);
-  background:red;
-}
+    input, select{
+        width:100%;
+        padding:12px;
+        margin-bottom:15px;
+        border:1px solid #ccc;
+        border-radius:8px;
+        font-size:15px;
+    }
 
-.voltar {
-  margin-bottom: 20px;
-  display: inline-block;
-  font-size: 18px;
-  color: #c8102e;
-}
+    button{
+        width:100%;
+        padding:14px;
+        background:#c8102e;
+        border:0;
+        border-radius:10px;
+        color:#fff;
+        font-size:17px;
+        cursor:pointer;
+    }
+
+    button:hover{
+        background:#a40d25;
+    }
 </style>
-
 </head>
+
 <body>
+<div class="container">
+    <h2>Preencha seus dados</h2>
 
-<a class="voltar" href="index.html">⬅ Voltar</a>
+    <form>
+        <label>Nome Completo</label>
+        <input type="text" placeholder="Seu nome" required>
 
-<h2 id="tituloMoto"></h2>
-<h3 id="tipoSimulacao"></h3>
+        <label>Telefone</label>
+        <input type="tel" placeholder="(xx) xxxxx-xxxx" required>
 
-<form id="formSimulacao">
+        <label>E-mail</label>
+        <input type="email" placeholder="exemplo@gmail.com" required>
 
-    <input class="input-style" id="nome" placeholder="Nome completo" required>
+        <label>Modalidade</label>
+        <select required>
+            <option value="">Selecione...</option>
+            <option value="financiamento">Financiamento</option>
+            <option value="consorcio">Consórcio</option>
+        </select>
 
-    <input class="input-style" id="cpf" placeholder="CPF" required>
+        <label>Modelo da Moto</label>
+        <input type="text" placeholder="Ex: Titan 160, Biz 125..." required>
 
-    <input class="input-style" id="nascimento" type="date" placeholder="Data de nascimento" required>
-
-    <input class="input-style" id="telefone" placeholder="Telefone" required>
-
-    <input class="input-style" id="whats" placeholder="WhatsApp" required>
-
-    <input class="input-style" id="renda" placeholder="Renda mensal (R$)" required>
-
-    <select class="input-style" id="trabalho">
-        <option value="">Tipo de trabalho</option>
-        <option value="Autônomo">Autônomo</option>
-        <option value="Assalariado">Assalariado</option>
-    </select>
-
-    <select class="input-style" id="habilitacao">
-        <option value="">Tem habilitação?</option>
-        <option value="Sim">Sim</option>
-        <option value="Não">Não</option>
-    </select>
-
-    <input class="input-style" id="entrada" placeholder="Valor de entrada (R$)">
-
-    <button class="btn-enviar" type="submit">ENVIAR PARA O WHATSAPP</button>
-</form>
-
-<script src="js/script.js"></script>
-// Página de formulário
-if (window.location.pathname.includes("formulario.html")) {
-    const p = new URLSearchParams(window.location.search);
-    const moto = p.get("moto");
-    const tipo = p.get("tipo");
-
-    document.getElementById("tituloMoto").innerText = "Moto escolhida: " + moto;
-    document.getElementById("tipoSimulacao").innerText =
-        "Tipo de simulação: " + tipo.toUpperCase();
-
-    const form = document.getElementById("formSimulacao");
-
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        let msg =
-`Olá, quero simular uma moto!
-Moto: ${moto}
-Tipo: ${tipo}
-Nome: ${nome.value}
-CPF: ${cpf.value}
-Nascimento: ${nascimento.value}
-Telefone: ${telefone.value}
-WhatsApp: ${whats.value}
-Renda: ${renda.value}
-Trabalho: ${trabalho.value}
-Habilitação: ${habilitacao.value}
-Entrada: ${entrada.value}`;
-
-        const zap = "55944992781498"; // seu número
-        const url = `https://wa.me/${zap}?text=${encodeURIComponent(msg)}`;
-
-        document.querySelector(".btn-enviar").innerText = "Enviando...";
-
-        setTimeout(() => {
-            window.location.href = url;
-        }, 700);
-    });
-}
-
+        <button type="submit">Enviar Dados</button>
+    </form>
+</div>
 </body>
 </html>
