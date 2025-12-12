@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Financiamento</title>
+</head>
+<body>
+<h1>Página de Financiamento Funcionando ✔</h1>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const moto = params.get("moto");
+  document.body.innerHTML += `<p>Moto escolhida: <strong>${moto}</strong></p>`;
+</script>
+
+</body>
+</html>
