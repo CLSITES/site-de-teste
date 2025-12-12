@@ -496,61 +496,16 @@ function renderFinanciamento(idx){
       <div class="card-body">
         <h2>${m.nome}</h2>
         
-        <p class="small">
-          Ano: ${m.ano} • Preço à vista: 
-          <strong>${m.precoAvista || '-'}</strong>
-        </p>
+       
 
-        <!-- BÔNUS DESTACADO -->
-        <p style="margin:8px 0 0 0; font-size:22px; font-weight:900; color:#c8102e;">
-          Bônus disponível: ${m.bonus || 'Consule'}
-        </p>
+       
 
       </div>
     </div>
   
 
     <div class="form-card" id="finCard" style="margin-top:12px">
-      <h3>Simular Financiamento — ${m.nome}</h3>
-      <form id="finForm">
-        <label>Nome completo *</label>
-<input name="nome" required placeholder="Seu nome completo">
-
-<label>CPF *</label>
-<input name="cpf" required placeholder="000.000.000-00">
-
-<label>Data de nascimento *</label>
-<input name="nascimento" type="date" required>
-
-<label>WhatsApp *</label>
-<input name="whatsapp" required placeholder="(99) 99999-9999">
-
-<label>Tipo de Renda *</label>
-<select name="trabalho" required>
-  <option value="" disabled selected>Selecione...</option>
-  <option value="Assalariado">Assalariado</option>
-  <option value="Autônomo">Autônomo</option>
-</select>
-
-<label>Renda mensal (R$) *</label>
-<input name="renda" type="number" min="0" required>
-
-<label>Possui habilitação? *</label>
-<select name="habilitacao" required>
-  <option value="" disabled selected>Selecione...</option>
-  <option value="Sim">Sim</option>
-  <option value="Não">Não</option>
-</select>
-
-<label>Valor de entrada (R$)</label>
-<input name="entrada" type="number" min="0" placeholder="Ex: 2000">
-
-
-<input name="moto" value="${m.nome}" readonly style="border:0;background:transparent;font-weight:700;margin-bottom:10px">
-
-
-        <button type="submit">Enviar simulação para WhatsApp</button>
-      </form>
+      
     </div>
   `;
 
