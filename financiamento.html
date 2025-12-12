@@ -2,15 +2,176 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>Financiamento</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Simular Financiamento</title>
+
+<style>
+    body{
+        margin:0;
+        font-family:Arial, sans-serif;
+        background:#f2f2f7;
+        padding:20px;
+        animation: fadeIn .6s ease-in-out;
+    }
+
+    @keyframes fadeIn{
+        from{opacity:0; transform:translateY(12px);}
+        to{opacity:1; transform:translateY(0);}
+    }
+
+    .card{
+        background:white;
+        padding:18px;
+        border-radius:14px;
+        box-shadow:0 6px 18px rgba(0,0,0,0.1);
+        margin-bottom:20px;
+        animation: pop .5s ease;
+    }
+
+    @keyframes pop{
+        from{transform:scale(.96); opacity:0;}
+        to{transform:scale(1); opacity:1;}
+    }
+
+    h2{
+        margin:0 0 10px;
+        font-size:22px;
+    }
+
+    label{
+        font-weight:600;
+        margin-top:12px;
+        display:block;
+    }
+
+    input, select{
+        width:100%;
+        padding:12px;
+        border-radius:10px;
+        border:1px solid #ccc;
+        margin-top:4px;
+        font-size:16px;
+        background:#fafafa;
+        transition:0.2s;
+    }
+
+    input:focus, select:focus{
+        border-color:#c8102e;
+        background:white;
+        box-shadow:0 0 6px rgba(200,16,46,0.3);
+    }
+
+    button{
+        width:100%;
+        padding:14px;
+        background:#c8102e;
+        border:none;
+        margin-top:20px;
+        border-radius:12px;
+        font-size:18px;
+        font-weight:700;
+        color:white;
+        cursor:pointer;
+        transition:.25s;
+        animation: pop .5s ease;
+    }
+
+    button:active{
+        transform:scale(0.96);
+        background:#a00b23;
+    }
+
+    .moto-name{
+        font-weight:800;
+        font-size:19px;
+        margin-bottom:8px;
+        color:#c8102e;
+        text-align:center;
+    }
+</style>
 </head>
+
 <body>
-<h1>Página de Financiamento Funcionando ✔</h1>
+
+<div class="card">
+    <h2>Simulação de Financiamento</h2>
+    <p class="moto-name" id="motoEscolhida">Carregando...</p>
+
+    <form id="finForm">
+
+        <label>Nome completo *</label>
+        <input name="nome" required placeholder="Ex: João da Silva">
+
+        <label>CPF *</label>
+        <input name="cpf" required placeholder="000.000.000-00">
+
+        <label>Data de Nascimento *</label>
+        <input name="nascimento" type="date" required>
+
+        <label>Celular *</label>
+        <input name="whatsapp" required placeholder="(99) 99999-9999">
+
+        <label>Profissão *</label>
+        <select name="tipo" required>
+            <option disabled selected>Selecione...</option>
+            <option value="Autônomo">Autônomo</option>
+            <option value="Assalariado">Assalariado</option>
+        </select>
+
+        <label>Renda Mensal (R$) *</label>
+        <input name="renda" type="number" required placeholder="Ex: 2000">
+
+        <label>Possui habilitação? *</label>
+        <select name="habilitacao" required>
+            <option disabled selected>Selecione...</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+        </select>
+
+        <label>Valor da entrada (R$)</label>
+        <input name="entrada" type="number" placeholder="Ex: 1500">
+
+        <input type="hidden" name="moto" id="motoInput">
+
+        <button>Enviar simulação para WhatsApp</button>
+    </form>
+</div>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const moto = params.get("moto");
-  document.body.innerHTML += `<p>Moto escolhida: <strong>${moto}</strong></p>`;
+    // pega a moto pela URL
+    const params = new URLSearchParams(window.location.search);
+    const moto = params.get("moto") || "Moto não informada";
+
+    document.getElementById("motoEscolhida").innerText = moto;
+    document.getElementById("motoInput").value = moto;
+
+    const form = document.getElementById("finForm");
+
+    form.addEventListener("submit", function(e){
+        e.preventDefault();
+
+        const fd = new FormData(form);
+        const data = Object.fromEntries(fd.entries());
+
+        const msg = 
+`*INFORMAÇÕES NECESSÁRIAS PARA PRÉ-ANÁLISE*
+
+*Moto:* ${data.moto}
+*Nome:* ${data.nome}
+*CPF:* ${data.cpf}
+*Nascimento:* ${data.nascimento}
+*Celular:* ${data.whatsapp}
+*Renda:* R$ ${data.renda}
+*Tipo:* ${data.tipo}
+*Habilitação:* ${data.habilitacao}
+*Entrada:* R$ ${data.entrada || "0"}`;
+
+        const zap = "944992781498";  // <-- SEU NÚMERO
+        const url = `https://wa.me/${zap}?text=${encodeURIComponent(msg)}`;
+
+        window.location.href = url;
+    });
 </script>
 
 </body>
