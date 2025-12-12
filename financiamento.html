@@ -195,7 +195,10 @@
     // --- PEGA MOTO ESCOLHIDA NA URL ---
     const params = new URLSearchParams(window.location.search);
     const motoId = params.get("moto") || null;
-    const motoSelecionada = motos.find(m => m.id === motoId) || motos[0];
+    const urlParams = new URLSearchParams(window.location.search);
+const motoEscolhida = urlParams.get('moto'); // pega ?moto=ID
+const moto = DATA.motos.find(m => m.id === motoEscolhida) || DATA.motos[0];
+
 
     // atualiza título e formulário
     document.getElementById("tituloMoto").innerText = motoSelecionada.nome;
