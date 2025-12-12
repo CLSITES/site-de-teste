@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulação - Honda Revemar</title>
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Animações -->
+<style>
+form { animation: fadeInUp .5s ease; }
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+.input-style {
+  width: 100%;
+  padding: 15px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  font-size: 17px;
+  outline: none;
+  transition: .2s;
+}
+
+.input-style:focus {
+  border-color: #c8102e;
+  transform: scale(1.02);
+}
+
+.btn-enviar {
+  width: 100%;
+  padding: 15px;
+  background: #c8102e;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  font-size: 18px;
+  margin-top: 10px;
+  transition: .2s;
+}
+
+.btn-enviar:active {
+  transform: scale(.95);
+  background:red;
+}
+
+.voltar {
+  margin-bottom: 20px;
+  display: inline-block;
+  font-size: 18px;
+  color: #c8102e;
+}
+</style>
+
+</head>
+<body>
+
+<a class="voltar" href="index.html">⬅ Voltar</a>
+
+<h2 id="tituloMoto"></h2>
+<h3 id="tipoSimulacao"></h3>
+
+<form id="formSimulacao">
+
+    <input class="input-style" id="nome" placeholder="Nome completo" required>
+
+    <input class="input-style" id="cpf" placeholder="CPF" required>
+
+    <input class="input-style" id="nascimento" type="date" placeholder="Data de nascimento" required>
+
+    <input class="input-style" id="telefone" placeholder="Telefone" required>
+
+    <input class="input-style" id="whats" placeholder="WhatsApp" required>
+
+    <input class="input-style" id="renda" placeholder="Renda mensal (R$)" required>
+
+    <select class="input-style" id="trabalho">
+        <option value="">Tipo de trabalho</option>
+        <option value="Autônomo">Autônomo</option>
+        <option value="Assalariado">Assalariado</option>
+    </select>
+
+    <select class="input-style" id="habilitacao">
+        <option value="">Tem habilitação?</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+    </select>
+
+    <input class="input-style" id="entrada" placeholder="Valor de entrada (R$)">
+
+    <button class="btn-enviar" type="submit">ENVIAR PARA O WHATSAPP</button>
+</form>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
