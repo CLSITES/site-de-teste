@@ -95,6 +95,45 @@ form { animation: fadeInUp .5s ease; }
 </form>
 
 <script src="js/script.js"></script>
+// Página de formulário
+if (window.location.pathname.includes("formulario.html")) {
+    const p = new URLSearchParams(window.location.search);
+    const moto = p.get("moto");
+    const tipo = p.get("tipo");
+
+    document.getElementById("tituloMoto").innerText = "Moto escolhida: " + moto;
+    document.getElementById("tipoSimulacao").innerText =
+        "Tipo de simulação: " + tipo.toUpperCase();
+
+    const form = document.getElementById("formSimulacao");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let msg =
+`Olá, quero simular uma moto!
+Moto: ${moto}
+Tipo: ${tipo}
+Nome: ${nome.value}
+CPF: ${cpf.value}
+Nascimento: ${nascimento.value}
+Telefone: ${telefone.value}
+WhatsApp: ${whats.value}
+Renda: ${renda.value}
+Trabalho: ${trabalho.value}
+Habilitação: ${habilitacao.value}
+Entrada: ${entrada.value}`;
+
+        const zap = "55944992781498"; // seu número
+        const url = `https://wa.me/${zap}?text=${encodeURIComponent(msg)}`;
+
+        document.querySelector(".btn-enviar").innerText = "Enviando...";
+
+        setTimeout(() => {
+            window.location.href = url;
+        }, 700);
+    });
+}
 
 </body>
 </html>
