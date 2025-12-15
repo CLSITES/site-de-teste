@@ -13,7 +13,7 @@ label{font-weight:600;margin-top:12px;display:block}
 input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;margin-top:4px;font-size:16px}
 button{width:100%;padding:14px;background:#c8102e;border:none;margin-top:20px;border-radius:12px;font-size:18px;font-weight:700;color:#fff}
 .carousel{width:100%;height:220px;overflow:hidden;border-radius:12px;margin-bottom:15px}
-.carousel-track{display:flex;animation:scroll 15s linear infinite}
+.carousel-track{display:flex;animation:scroll 5s linear infinite}
 .carousel-track img{width:100%;height:220px;object-fit:cover}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-66%)}}
 .moto-name{text-align:center;font-weight:800;color:#c8102e}
@@ -61,6 +61,7 @@ small{color:#777}
 
 <script>
 const motos = [
+
 {
   id:'BIZ125ES',
   nome:'BIZ 125 ES',
@@ -73,15 +74,117 @@ const motos = [
 },
 
 {
+  id:'BIZ125EX',
+  nome:'BIZ 125 EX',
+  imgs:[
+    'https://www.honda.com.br/motos/sites/hda/files/2024-08/nova-carenagem-honda-biz-125-ex_1560x624.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2024-08/Biz_125_Diferencial_Freios_nas_duas_maos.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2024-08/luz-de-poscionamento-led-honda-biz-125-ex_2_1560x624.jpg'
+  ],
+  parcelas:{36:680.89,48:516.83,60:419.69,80:323.96}
+},
+
+{
+  id:'CG160START',
+  nome:'CG 160 START',
+  imgs:[
+    'https://www.honda.com.br/motos/sites/hda/files/2025-08/visao-frontal-da-lateral-direita-da-honda-cg-160-start.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-08/painel-da-moto-honda-cg-160-start.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-08/lanterna-traseira-em-led-da-moto-honda-cg-160-start.webp'
+  ],
+  parcelas:{36:711.36,48:539.98,60:438.37,80:338.46}
+},
+
+{
   id:'CG160FAN',
   nome:'CG 160 FAN',
   imgs:[
     'https://www.honda.com.br/motos/sites/hda/files/2025-08/visao-frontal-da-lateral-direita-da-honda-cg-160-fan.webp',
     'https://www.honda.com.br/motos/sites/hda/files/2025-08/farol-da-moto-honda-cg-160-fan-.webp',
     'https://www.honda.com.br/motos/sites/hda/files/2025-08/painel-da-moto-honda-cg-160-fan.webp'
-  ]
+  ],
+  parcelas:{36:776.34,48:589.28,60:478.42,80:369.37}
+},
+
+{
+  id:'CG160TITAN',
+  nome:'CG 160 TITAN',
+  imgs:[
+    'https://www.honda.com.br/motos/sites/hda/files/2025-08/visao-frontal-da-lateral-direita-da-honda-cg-160-titan.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-08/painel-da-moto-honda-cg-160-titan.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-08/Suspens%C3%A3o-dianteira-da-honda-cg-160-titan.webp'
+  ],
+  parcelas:{36:825.30,48:626.44,60:508.59,80:392.67}
+},
+
+{
+  id:'CB300FTWABS',
+  nome:'CB 300F TWISTER ABS',
+  imgs:[
+    'https://www.motopel.com.br/site/wp-content/uploads/2021/02/cb-300F-twister-azul.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-07/Painel_Digital.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-07/CB_300F_TWISTER_ILUMINA%C3%87%C3%83O_FULL_LED_1080x670.webp'
+  ],
+  parcelas:{36:1032.32,48:783.58,60:636.16,80:491.16}
+},
+
+{
+  id:'CB300FTWCBS',
+  nome:'CB 300F TWISTER CBS',
+  imgs:[
+    'https://www.motopel.com.br/site/wp-content/uploads/2021/02/cb-300F-twister-cinza.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-07/Painel_Digital_CBS.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-07/3_4FD-CBS.webp'
+  ],
+  parcelas:{36:993.65,48:754.23,60:612.33,80:472.77}
+},
+
+{
+  id:'NXR160BRS',
+  nome:'NXR 160 BROS CBS',
+  imgs:[
+    'https://www.honda.com.br/motos/sites/hda/files/2024-08/honda-nxr-bros-160-lateral-dianteira-direita-vermelho.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2024-08/novo-painel-honda-nxr-bros-160.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2024-08/farol-honda-nxr-bros-160.webp'
+  ],
+  parcelas:{36:882.21,48:669.64,60:543.66,80:419.74}
+},
+
+{
+  id:'NXR160ABS',
+  nome:'NXR 160 BROS ABS',
+  imgs:[
+    'https://www.honda.com.br/motos/sites/hda/files/2024-08/usb-c-honda-nxr-bros-160.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-07/Bros-Cinza-3_4FD-ABS.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2024-08/farol-honda-nxr-bros-160.webp'
+  ],
+  parcelas:{36:920.17,48:698.45,60:566.20,80:437.81}
+},
+
+{
+  id:'XRE190',
+  nome:'XRE 190',
+  imgs:[
+    'https://www.motopel.com.br/site/wp-content/uploads/2021/02/xre-190-azul.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-08/full-led-honda-xre-190_2026.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-08/Painel-daHonda-XRE-190.webp'
+  ],
+  parcelas:{36:951.39,48:722.40,60:586.15,80:453.32}
+},
+
+{
+  id:'SAHARA300ABS',
+  nome:'SAHARA 300 ABS',
+  imgs:[
+    'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Sahara-300-Cinza-Met%C3%A1lico.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-07/Sahara_300_Farol_Full_LED.webp',
+    'https://www.honda.com.br/motos/sites/hda/files/2025-08/Honda-Sahara-300-Design-Imponente.webp'
+  ],
+  parcelas:{36:1246.00,48:945.78,60:767.84,80:590.32}
 }
+
 ];
+
 
 const params = new URLSearchParams(location.search);
 const moto = motos.find(m => m.id === params.get('moto')) || motos[0];
