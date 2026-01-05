@@ -3,182 +3,183 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Honda Revemar — Corporate Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <title>Honda Revemar — Edição Exclusiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --honda-red: #cc0000;
-            --premium-black: #0f0f0f;
-            --glass-white: rgba(255, 255, 255, 0.95);
-            --border-gold: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --red-honda: #c8102e;
+            --gold-premium: #d4af37;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --card-white: #ffffff;
         }
 
-        * { box-sizing: border-box; outline: none; }
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
         body {
-            font-family: 'Montserrat', sans-serif;
             margin: 0;
-            background: var(--premium-black);
+            font-family: 'Montserrat', sans-serif;
+            background: #0b0b0b;
             color: #fff;
             overflow-x: hidden;
         }
 
-        /* FUNDO COM FOGOS DESFOCADOS */
+        /* FUNDO DE FOGOS EM LOOP (GENERAL) */
         #bg-canvas {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: -1;
-            filter: blur(60px); /* Efeito Bokeh Profissional */
-            opacity: 0.5;
+            filter: blur(8px); /* Desfocado profissional */
+            opacity: 0.4;
         }
 
         header {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(15px);
+            background: rgba(0,0,0,0.9);
             padding: 20px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 3px solid var(--red-honda);
+            position: sticky;
+            top: 0; z-index: 100;
         }
 
-        .logo-honda { width: 150px; transition: 0.3s; }
+        .logo-campanha {
+            height: 50px;
+            filter: drop-shadow(0 0 10px var(--red-honda));
+        }
 
-        /* AREA DO TEMA (BANNER PRINCIPAL) */
-        .hero-section {
-            padding: 60px 5%;
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+
+        .section-title {
             text-align: center;
-            background: radial-gradient(circle at center, rgba(204, 0, 0, 0.2) 0%, transparent 70%);
+            font-weight: 900;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
         }
 
-        .hero-title { font-weight: 900; font-size: 3.5rem; text-transform: uppercase; margin-bottom: 10px; }
-        .hero-subtitle { font-size: 1.2rem; color: #ccc; letter-spacing: 2px; }
-
-        /* GRID DE MOTOS */
-        .moto-container {
-            max-width: 1300px;
-            margin: 0 auto;
+        /* GRID DE MOTOS PROFISSIONAL */
+        .moto-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 40px;
-            padding: 40px 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
         }
 
-        /* MOLDURA PROFISSIONAL */
         .moto-card {
-            background: #fff;
-            border-radius: 4px;
-            position: relative;
-            padding: 2px; /* Espaço para a borda animada */
-            background: var(--border-gold);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .moto-card:hover { transform: translateY(-10px); }
-
-        .card-inner {
-            background: #fff; /* Fundo interno sempre branco */
-            border-radius: 2px;
-            padding: 0;
+            background: var(--card-white);
+            border-radius: 15px;
             overflow: hidden;
             position: relative;
+            border: 2px solid #333;
+            transition: border-color 0.3s;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        /* PLACA METÁLICA ANO */
-        .year-tag {
-            position: absolute;
-            top: 15px; left: 15px;
-            background: linear-gradient(135deg, #333, #000);
-            color: #d4af37;
-            padding: 5px 15px;
-            font-weight: 900;
-            font-size: 0.8rem;
-            border-radius: 3px;
-            z-index: 20;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            border: 1px solid #d4af37;
-        }
-
-        /* ENFEITES PENDURADOS (TEMA) */
-        .enfeite {
-            position: absolute;
-            top: -5px; right: 30px;
-            z-index: 30;
-            transform-origin: top center;
-            animation: balanco 3s ease-in-out infinite;
-        }
-
-        @keyframes balanco {
-            0%, 100% { transform: rotate(-8deg); }
-            50% { transform: rotate(8deg); }
-        }
+        .moto-card:hover { border-color: var(--red-honda); }
 
         /* PALCO DA MOTO */
-        .stage {
+        .moto-stage {
             height: 250px;
+            background: #fff;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            background: radial-gradient(circle, #fff 50%, #f0f0f0 100%);
             overflow: hidden;
+            border-bottom: 1px solid #eee;
+        }
+
+        .placa-ano {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: var(--red-honda);
+            color: white;
+            padding: 5px 15px;
+            font-weight: 800;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            z-index: 10;
+        }
+
+        .decoracao-pendurada {
+            position: absolute;
+            top: 0; right: 20px;
+            width: 60px;
+            animation: swing 3s ease-in-out infinite;
+            transform-origin: top;
+            z-index: 5;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
         }
 
         .moto-img {
             width: 80%;
-            z-index: 10;
-            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.2));
-            transition: transform 0.5s ease;
+            z-index: 3;
+            transition: transform 0.1s;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.1));
         }
 
-        /* ANIMAÇÃO DE ACELERAÇÃO REALISTA */
+        /* ANIMAÇÃO BURN-OUT E LOOP */
+        .burnout-smoke {
+            position: absolute;
+            bottom: 40px; left: 50%;
+            width: 100px; height: 40px;
+            background: radial-gradient(circle, rgba(200,200,200,0.8) 0%, transparent 70%);
+            filter: blur(10px);
+            opacity: 0;
+            z-index: 2;
+        }
+
         .pneu-mark {
             position: absolute;
-            bottom: 60px; left: 50%;
-            height: 8px; width: 0;
-            background: rgba(0,0,0,0.8);
-            border-radius: 50%;
-            transform: translateX(-50%);
-            filter: blur(3px);
-            z-index: 5;
+            bottom: 50px; left: 45%;
+            width: 0; height: 8px;
+            background: #222;
+            border-radius: 10px;
+            opacity: 0.6;
+            z-index: 1;
         }
 
-        .accelerating {
-            animation: hondaRun 2.5s cubic-bezier(0.5, 0, 0.5, 1) forwards;
+        .animate-drive { animation: driveLoop 2.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards; }
+        
+        @keyframes driveLoop {
+            0% { transform: translateX(0) scale(1); }
+            10% { transform: translateX(-15px) rotate(-2deg); }
+            30% { transform: translateX(120vw); opacity: 1; }
+            31% { opacity: 0; transform: translateX(-120vw); }
+            100% { transform: translateX(0); opacity: 1; }
         }
 
-        @keyframes hondaRun {
-            0% { transform: translateX(0) scale(1) rotate(0deg); }
-            10% { transform: translateX(-15px) scale(1.02) rotate(-5deg); } /* Empinada de torque */
-            40% { transform: translateX(600px) scale(0.9) rotate(2deg); }
-            41% { opacity: 0; transform: translateX(-600px); }
-            100% { transform: translateX(0) scale(1) rotate(0deg); opacity: 1; }
+        /* CORPO DO CARD */
+        .card-info { padding: 25px; color: #111; text-align: center; }
+        .moto-name { font-size: 1.5rem; font-weight: 900; margin: 0; color: #000; }
+        .moto-price { color: var(--red-honda); font-size: 1.3rem; font-weight: 700; margin: 10px 0; }
+
+        .btn-box { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-action {
+            flex: 1; padding: 15px; border-radius: 8px;
+            text-decoration: none; font-weight: 800;
+            text-transform: uppercase; font-size: 0.8rem;
+            transition: 0.3s; text-align: center;
+        }
+        .btn-fin { background: var(--red-honda); color: white; }
+        .btn-cons { background: #000; color: white; }
+        .btn-action:hover { transform: translateY(-3px); filter: brightness(1.2); }
+
+        .btn-firework {
+            position: absolute; bottom: 10px; right: 10px;
+            background: none; border: 1px solid #ddd; border-radius: 50%;
+            width: 35px; height: 35px; cursor: pointer; font-size: 15px;
         }
 
-        .card-info { padding: 25px; color: #333; }
-        .moto-name { font-weight: 700; font-size: 1.4rem; margin: 0; text-transform: uppercase; }
-        .moto-price { color: var(--honda-red); font-size: 1.2rem; font-weight: 700; margin: 10px 0; }
-
-        .btn-group { display: flex; gap: 10px; }
-        .btn-simular {
-            flex: 1; padding: 12px; border: none; font-weight: 700; cursor: pointer;
-            text-transform: uppercase; border-radius: 4px; transition: 0.3s;
-            text-decoration: none; text-align: center;
+        @media (max-width: 768px) {
+            .section-title { font-size: 1.8rem; }
         }
-        .btn-fin { background: var(--honda-red); color: #fff; }
-        .btn-cons { background: #000; color: #fff; }
-        .btn-simular:hover { opacity: 0.8; letter-spacing: 1px; }
-
-        /* FOOTER E WHATSAPP */
-        .footer { padding: 40px; text-align: center; opacity: 0.6; }
-        .whatsapp-fix {
-            position: fixed; bottom: 30px; right: 30px;
-            background: #25d366; width: 65px; height: 65px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4); z-index: 2000;
-        }
-
     </style>
 </head>
 <body>
@@ -186,298 +187,163 @@
 <canvas id="bg-canvas"></canvas>
 
 <header>
-    <img src="https://logodownload.org/wp-content/uploads/2014/04/honda-logo-1.png" class="logo-honda" alt="Honda">
-    <nav style="display: flex; gap: 30px;">
-        <a href="#" style="color: #fff; text-decoration: none; font-weight: 700;">MODELOS</a>
-        <a href="#tabela" style="color: #fff; text-decoration: none; font-weight: 700;">TABELAS</a>
-        <a href="#" style="color: var(--honda-red); text-decoration: none; font-weight: 900;">CONTATO</a>
-    </nav>
+    <div id="header-area">
+        <img src="" id="logo-campanha" class="logo-campanha" alt="Honda Campanha">
+    </div>
+    <div style="text-align: right">
+        <div style="font-weight: 900; color: var(--red-honda)">REVEMAR HONDA</div>
+        <div id="tema-label" style="font-size: 0.7rem; color: #888"></div>
+    </div>
 </header>
 
-<main>
-    <section class="hero-section">
-        <h1 class="hero-title" id="campanha-titulo">--</h1>
-        <p class="hero-subtitle" id="campanha-sub">--</p>
-    </section>
+<main class="container">
+    <h1 class="section-title" id="titulo-principal"></h1>
 
-    <div class="moto-container" id="motoGrid">
+    <div class="moto-grid" id="motoGrid">
         </div>
 </main>
 
-<div class="footer">
-    © <span id="year"></span> Honda Revemar - Todos os direitos reservados.
-</div>
-
-<a href="https://wa.me/5594992781498" class="whatsapp-fix">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35">
-</a>
-
 <script>
 /* ============================================================
-   ÁREA TEMÁTICA - MUDE AQUI PARA ALTERAR O TEMA DO SITE TODO
+   AREA DE PERSONALIZAÇÃO (Onde você muda o tema mensal)
    ============================================================ */
-const THEME_CONFIG = {
-    nome: "Ano Novo 2026",
-    titulo: "Feliz Ano Novo Honda",
-    subtitulo: "Acelere para um novo começo com taxas exclusivas",
-    enfeiteIcone: "https://cdn-icons-png.flaticon.com/512/2357/2357931.png", // Imagem do penduricalho
-    corPrimaria: "#cc0000",
-    bgLogo: "URL_DA_LOGO_CAMPANHA_SE_HOUVER"
+const CONFIG_TEMA = {
+    nomeCampanha: "FELIZ ANO NOVO 2026",
+    tituloSite: "Ofertas de Janeiro Revemar",
+    logoURL: "https://www.honda.com.br/motos/sites/hda/themes/hondamotos/logo.svg",
+    corDestaque: "#c8102e",
+    enfeiteIcone: "https://cdn-icons-png.flaticon.com/512/3893/3893071.png", // Imagem do enfeite pendurado
+    anoVigente: "2026"
 };
 
-const MOTOS_DATA = [
-    { id:'BIZ125ES', nome:'BIZ 125 ES', ano:2026, precoAvista:'R$ 20.149',
-  bonus:'R$ 4.166',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Honda-Biz-125-ES-Preto-Black_0.webp',
-  parcelas:{36:550.10,48:417.55,60:339.00,80:261.73}
-},
-
-{ id:'BIZ125EX', nome:'BIZ 125 EX', ano:2026, precoAvista:'R$ 24.420',
-  bonus:'R$ 4.993',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Biz-125-EX-Branco-Perolizado-Pearl-Hakuji-White_0.webp',
-  parcelas:{36:680.89,48:516.83,60:419.69,80:323.96}
-},
-
-{ id:'CG160START', nome:'CG 160 START', ano:2026, precoAvista:'R$ 24.665',
-  bonus:'R$ 1.821',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-home-visao-da-lateral-direita-da-honda-cg-160-start.webp',
-  parcelas:{36:711.36,48:539.98,60:438.37,80:338.46}
-},
-
-{ id:'CG160FAN', nome:'CG 160 FAN', ano:2026, precoAvista:'R$ 26.723',
-  bonus:'R$ 3.696',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Honda-CG-160-Fan-Vermelho-Perolizado.webp',
-  parcelas:{36:776.34,48:589.28,60:478.42,80:369.37}
-},
-
-{ id:'CG160TITAN', nome:'CG 160 TITAN', ano:2026, precoAvista:'R$ 28.505',
-  bonus:'R$ 3.513',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Honda-CG-160-Titan-Cinza-Met%C3%A1lico.webp',
-  parcelas:{36:825.30,48:626.44,60:508.59,80:392.67}
-},
-
-{ id:'CB300FTWABS', nome:'CB 300F TWISTER ABS', ano:2026, precoAvista:'R$ 33.829',
-  bonus:'R$ 4.863',
-  img:'https://www.motopel.com.br/site/wp-content/uploads/2021/02/cb-300F-twister-azul.webp',
-  parcelas:{36:1032.32,48:783.58,60:636.16,80:491.16}
-},
-
-{ id:'CB300FTWCBS', nome:'CB 300F TWISTER CBS', ano:2026, precoAvista:'R$ 32.665',
-  bonus:'R$ 4.603',
-  img:'https://www.motopel.com.br/site/wp-content/uploads/2021/02/cb-300F-twister-cinza.webp',
-  parcelas:{36:993.65,48:754.23,60:612.33,80:472.77}
-},
-
-{ id:'NXR160BRS', nome:'NXR 160 BROS CBS', ano:2026, precoAvista:'R$ 31.004',
-  bonus:'R$ 4.603',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Honda-NXR-160-Bros-CBS-Azul-Universe-Blue.webp',
-  parcelas:{36:882.21,48:669.64,60:543.66,80:419.74}
-},
-
-{ id:'NXR160ABS', nome:'NXR 160 BROS ABS', ano:2026, precoAvista:'R$ 32.251',
-  bonus:'R$ 4.863',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Honda-NXR-160-Bros-ABS-Vermelho-Fighting-Red.webp',
-  parcelas:{36:920.17,48:698.45,60:566.20,80:437.81}
-},
-
-{ id:'XRE190', nome:'XRE 190', ano:2026, precoAvista:'R$ 31.389',
-  bonus:'R$ 2.223',
-  img:'https://www.motopel.com.br/site/wp-content/uploads/2021/02/xre-190-azul.webp',
-  parcelas:{36:951.39,48:722.40,60:586.15,80:453.32}
-},
-
-{ id:'SAHARA300ABS', nome:'SAHARA 300 ABS', ano:2026, precoAvista:'R$ 39.600',
-  bonus:'R$ 4.548',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Sahara-300-Cinza-Met%C3%A1lico.webp',
-  parcelas:{36:1246.00,48:945.78,60:767.84,80:590.32}
-},
-
-{ id:'SAHARA300RALLY', nome:'SAHARA 300 RALLY', ano:2026, precoAvista:'R$ 40.438',
-  bonus:'R$ 4.624',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Sahara-300-Rally-Vermelho-Victory-Red.webp',
-  parcelas:{0:0}
-},
-
-{ id:'SAHARA300ADV', nome:'SAHARA 300 ADV', ano:2026, precoAvista:'R$ 40.830',
-  bonus:'R$ 4.660',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Sahara-300-Adventure-Bege%20Met%C3%A1lico.webp',
-  parcelas:{36:1287.61,48:977.36,60:793.48,80:612.63}
-},
-
-{ id:'XR300LT', nome:'XR 300L TORNADO', ano:2026, precoAvista:'R$ 39.683',
-  bonus:'R$ 6.658',
-  img:'https://www.motopel.com.br/site/wp-content/uploads/2021/02/XR-300L-Tornado.webp',
-  parcelas:{36:1237.55,48:939.36,60:762.64,80:588.81}
-},
-
-{ id:'PCX', nome:'PCX CBS', ano:2026, precoAvista:'R$ 24.159',
-  bonus:'R$ 2.420',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/imagem-home-honda-pcx-branco_0.webp',
-  parcelas:{36:761.86,60:469.49}
-},
-
-{ id:'PCXABS', nome:'PCX ABS', ano:2026, precoAvista:'R$ 26.313',
-  bonus:'R$ 2.616',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/visao-da-lateral-direita-da-honda-pcx-azul.webp',
-  parcelas:{36:835.75,60:515.03}
-},
-
-{ id:'HONADA_ADV', nome:'Honda ADV', ano:2026, precoAvista:'R$ 32.320',
-  bonus:'R$ 3.434',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Honda-ADV-Prata-Met%C3%A1lico_0.webp',
-  parcelas:{36:1031.61,60:635.73}
-},
-
-{ id:'ELITE125', nome:'Elite 125', ano:2026, precoAvista:'R$ 19.197',
-  bonus:'R$ 2.250',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Elite-125-Vermelho-Maceio-Red_0.webp',
-  parcelas:{36:587.20,60:361.86}
-},
-
-{ id:'POP110', nome:'POP 110i ES +10', ano:2026, precoAvista:'R$ 16.685',
-  bonus:'R$ 2.376',
-  img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Pop-110i-Es-Vermelho-Fighting-Red_0.webp',
-  parcelas:{36:436.26,48:331.14,60:268.84,80:207.57}
-},
-
-{ id:'CRF300F', nome:'CRF 300F', ano:2026, precoAvista:'R$ 30.580',
-  bonus:'R$ 2.716',
-  img:'https://www.motopel.com.br/site/wp-content/uploads/2025/08/capa-crf-300f.webp',
-  parcelas:{36:891.36,48:676.58,60:549.29,80:424.10}
-},
-
-// LINHA ADVANCE — 72 MESES
-{ id:'CB500HOR', nome:'CB 500 HORNET', ano:2026, precoAvista:'R$ 51.749',
-  bonus:'R$ 1.200',
-  img:'https://www.motopel.com.br/site/wp-content/uploads/2025/07/capa-hornet-500-2026-branca.webp',
-  parcelas:{72:780.03}
-},
-
-{ id:'NX500', nome:'NX 500', ano:2026, precoAvista:'R$ 55.317',
-  img:'https://www.motopel.com.br/site/wp-content/uploads/2025/07/capa-nx-500-2026-vermelha.webp',
-  parcelas:{72:829.43}
-},
-
-{ id:'NC750X', nome:'NC 750X', ano:2026, precoAvista:'R$ 67.027',
-  bonus:'R$ 1.200',
-  img:'https://www.motopel.com.br/site/wp-content/uploads/2021/02/nc-750x-MT-prata.png.webp',
-  parcelas:{72:971.39}
-},
-
-{ id:'CB1000R70', nome:'CB 1000R 70%', ano:2026, precoAvista:'R$ 92.060',
-  bonus:'R$ 0,00',
-  img:'https://www.motopel.com.br/site/wp-content/uploads/2021/02/cb-1000R-black-edition.png.webp',
-  parcelas:{72:994.93}
-},
-
-{ id:'CRF1100L', nome:'CRF 1100L AFRICA TWIN 70%', ano:2026, precoAvista:'R$ 94.579',
-  bonus:'R$ 0,00',
-  img:'https://www.motopel.com.br/site/wp-content/uploads/2020/02/capa-africa-twin-mt.webp',
-  parcelas:{72:1022.90}
-}
+/* DADOS DAS MOTOS */
+const MOTOS = [
+    { id:'FAN', nome:'CG 160 FAN', preco:'R$ 26.723', img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Honda-CG-160-Fan-Vermelho-Perolizado.webp' },
+    { id:'TITAN', nome:'CG 160 TITAN', preco:'R$ 28.505', img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Honda-CG-160-Titan-Cinza-Met%C3%A1lico.webp' },
+    { id:'BIZ', nome:'BIZ 125 ES', preco:'R$ 20.149', img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Honda-Biz-125-ES-Preto-Black_0.webp' },
+    { id:'BROS', nome:'NXR 160 BROS', preco:'R$ 32.251', img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-Home-Honda-NXR-160-Bros-ABS-Vermelho-Fighting-Red.webp' },
+    { id:'XRE', nome:'XRE 190', preco:'R$ 31.389', img:'https://www.motopel.com.br/site/wp-content/uploads/2021/02/xre-190-azul.webp' },
+    { id:'PCX', nome:'PCX ABS', preco:'R$ 26.313', img:'https://www.honda.com.br/motos/sites/hda/files/2025-08/visao-da-lateral-direita-da-honda-pcx-azul.webp' }
 ];
 
-/* ============================================================
-   LÓGICA DO SISTEMA (NÃO MEXER SE NÃO FOR PROFISSIONAL)
-   ============================================================ */
+/* APLICAÇÃO DO TEMA */
+document.getElementById('logo-campanha').src = CONFIG_TEMA.logoURL;
+document.getElementById('tema-label').innerText = CONFIG_TEMA.nomeCampanha;
+document.getElementById('titulo-principal').innerText = CONFIG_TEMA.tituloSite;
 
-function initTheme() {
-    document.getElementById('campanha-titulo').innerText = THEME_CONFIG.titulo;
-    document.getElementById('campanha-sub').innerText = THEME_CONFIG.subtitulo;
-    document.getElementById('year').innerText = new Date().getFullYear();
-    renderMotos();
-    initFireworks();
-}
-
-function renderMotos() {
+/* RENDERIZAR CARDS */
+function renderCards() {
     const grid = document.getElementById('motoGrid');
-    grid.innerHTML = MOTOS_DATA.map(m => `
-        <div class="moto-card">
-            <div class="year-tag">2026</div>
-            <img src="${THEME_CONFIG.enfeiteIcone}" class="enfeite" width="50">
-            <div class="card-inner">
-                <div class="stage" onclick="hondaAnimation(this)">
-                    <div class="pneu-mark"></div>
-                    <img src="${m.img}" class="moto-img">
-                </div>
-                <div class="card-info">
-                    <h2 class="moto-name">${m.nome}</h2>
-                    <p class="moto-price">${m.preco}</p>
-                    <div class="btn-group">
-                        <a href="financiamento.html?id=${m.id}" class="btn-simular btn-fin">Financiamento</a>
-                        <a href="consorcio.html?id=${m.id}" class="btn-simular btn-cons">Consórcio</a>
-                    </div>
+    MOTOS.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'moto-card';
+        card.innerHTML = `
+            <div class="moto-stage" onclick="executarAnimacao(this)">
+                <div class="placa-ano">MODELO ${CONFIG_TEMA.anoVigente}</div>
+                <img src="${CONFIG_TEMA.enfeiteIcone}" class="decoracao-pendurada">
+                <div class="burnout-smoke"></div>
+                <div class="pneu-mark"></div>
+                <img src="${m.img}" class="moto-img" alt="${m.nome}">
+                <button class="btn-firework" onclick="clicouFogo(event, this)">🧨</button>
+            </div>
+            <div class="card-info">
+                <h3 class="moto-name">${m.nome}</h3>
+                <div class="moto-price">${m.preco}</div>
+                <div class="btn-box">
+                    <a href="financiamento.html?moto=${m.id}" class="btn-action btn-fin">Financiar</a>
+                    <a href="Consórcio.html?moto=${m.id}" class="btn-action btn-cons">Consórcio</a>
                 </div>
             </div>
-        </div>
-    `).join('');
+        `;
+        grid.appendChild(card);
+    });
 }
 
-function hondaAnimation(stage) {
-    const img = stage.querySelector('.moto-img');
+/* LÓGICA DE ANIMAÇÃO DA MOTO */
+function executarAnimacao(stage) {
+    const moto = stage.querySelector('.moto-img');
+    const smoke = stage.querySelector('.burnout-smoke');
     const mark = stage.querySelector('.pneu-mark');
-    
-    if(img.classList.contains('accelerating')) return;
 
-    // Efeito de fumaça fictícia e marca de pneu
-    mark.style.width = "180px";
-    mark.style.transition = "width 0.4s ease";
-    
-    img.classList.add('accelerating');
-    
+    if (moto.classList.contains('animate-drive')) return;
+
+    // 1. Inicia fumaça e marca de pneu
+    smoke.style.opacity = "1";
+    mark.style.width = "120px";
+    mark.style.transition = "width 0.4s";
+
+    // 2. Acelera após pequeno delay de burnout
     setTimeout(() => {
-        img.classList.remove('accelerating');
+        moto.classList.add('animate-drive');
+        smoke.style.opacity = "0";
+    }, 500);
+
+    // 3. Reset para poder clicar de novo
+    setTimeout(() => {
+        moto.classList.remove('animate-drive');
         mark.style.width = "0";
-    }, 2500);
+    }, 3000);
 }
 
-// LÓGICA DE FOGOS DE ARTIFÍCIO NO BACKGROUND (DESFOCADOS)
-function initFireworks() {
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = canvas.height + 100;
-            this.size = Math.random() * 5 + 2;
-            this.speedY = Math.random() * 3 + 2;
-            this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        }
-        update() {
-            this.y -= this.speedY;
-            if (this.y < -100) this.y = canvas.height + 100;
-        }
-        draw() {
-            ctx.fillStyle = this.color;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-
-    for (let i = 0; i < 50; i++) particles.push(new Particle());
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-        requestAnimationFrame(animate);
-    }
-    animate();
+function clicouFogo(e, btn) {
+    e.stopPropagation();
+    btn.innerText = "💥";
+    setTimeout(() => btn.style.display = "none", 500);
 }
 
-initTheme();
+/* BACKGROUND DE FOGOS (CANVAS) */
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+class Particle {
+    constructor() {
+        this.reset();
+    }
+    reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + 10;
+        this.vx = Math.random() * 2 - 1;
+        this.vy = -(Math.random() * 3 + 2);
+        this.size = Math.random() * 3 + 1;
+        this.color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+        this.alpha = 1;
+    }
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.y < 100) this.alpha -= 0.01;
+        if (this.alpha <= 0) this.reset();
+    }
+    draw() {
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+for(let i=0; i<50; i++) particles.push(new Particle());
+
+function animateBG() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animateBG);
+}
+
+renderCards();
+animateBG();
 </script>
 
 </body>
