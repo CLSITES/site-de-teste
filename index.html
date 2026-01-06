@@ -180,6 +180,67 @@
         @media (max-width: 768px) {
             .section-title { font-size: 1.8rem; }
         }
+
+        /* AGENTE IA PREMIUM */
+.agente-ia{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:10px 16px;
+  background:linear-gradient(135deg,#25D366,#1ebe5d);
+  border-radius:50px;
+  text-decoration:none;
+  box-shadow:0 20px 45px rgba(0,0,0,.35);
+  animation: flutuar 2.5s ease-in-out infinite;
+  z-index:9999;
+}
+
+.agente-foto{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #fff;
+}
+
+.agente-texto{
+  display:flex;
+  flex-direction:column;
+  line-height:1.1;
+}
+
+.agente-texto strong{
+  color:#fff;
+  font-size:14px;
+  font-weight:800;
+}
+
+.agente-texto span{
+  color:#eafff3;
+  font-size:12px;
+  font-weight:600;
+}
+
+/* ANIMAÇÃO SUAVE */
+@keyframes flutuar{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+  100%{transform:translateY(0)}
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .agente-ia{
+    padding:8px;
+  }
+  .agente-texto{
+    display:none;
+  }
+}
+
     </style>
 </head>
 <body>
@@ -489,6 +550,22 @@ function animateBG() {
 renderCards();
 animateBG();
 </script>
+
+<!-- AGENTE IA PROFISSIONAL -->
+<a class="agente-ia"
+   href="https://agent.vendedoria.acelerabit.com/site-vendedor?vendedor_image=https://image2url.com/images/1763321623834-3529dfca-89a1-481c-9b53-be3324834b67.jpg&vendedor_name=Lucas Honda&vendedor_whatsapp=559492781498&vendedor_id=9115&vendedor_concessionaria=REVEMAR&region_id=1"
+   target="_blank"
+   title="Fale comigo agora">
+
+  <img class="agente-foto"
+       src="https://image2url.com/images/1763321623834-3529dfca-89a1-481c-9b53-be3324834b67.jpg"
+       alt="Lucas Honda">
+
+  <div class="agente-texto">
+    <strong>Lucas Honda</strong>
+    <span>Fale comigo agora</span>
+  </div>
+</a>
 
 </body>
 </html>
